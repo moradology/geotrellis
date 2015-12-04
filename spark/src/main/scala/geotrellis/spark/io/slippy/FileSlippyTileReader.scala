@@ -12,9 +12,6 @@ import org.apache.commons.io.FileUtils
 import org.apache.commons.io.filefilter._
 import org.apache.spark._
 import org.apache.spark.rdd._
-import org.apache.hadoop.conf.Configuration
-import org.apache.hadoop.mapreduce.Job
-import org.apache.hadoop.mapreduce.{InputSplit, TaskAttemptContext}
 import org.apache.hadoop.fs.Path
 
 import java.io._
