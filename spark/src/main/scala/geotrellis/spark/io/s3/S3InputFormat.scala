@@ -40,43 +40,43 @@ abstract class S3InputFormat[K, V] extends InputFormat[K,V] with LazyLogging {
       if (max != null)  max.toInt  else  null
     }
 
-    val credentials = 
+    val credentials =
       if (anon != null)
         new AnonymousAWSCredentials()
       else if (id != null && key != null)
         new BasicAWSCredentials(id, key)
-      else      
+      else
         new DefaultAWSCredentialsProviderChain().getCredentials
-    
+
     val s3client = new com.amazonaws.services.s3.AmazonS3Client(credentials)
 
     region match {
-      case Some(r) => 
+      case Some(r) =>
         s3client.setRegion(r)
       case None =>
     }
-    
+
     logger.info(s"Listing Splits: bucket=$bucket prefix=$prefix")
     logger.debug(s"Authenticationg with ID=${credentials.getAWSAccessKeyId}")
     val request = new ListObjectsRequest()
       .withBucketName(bucket)
       .withPrefix(prefix)
       .withMaxKeys(maxKeys)
-    
+
     var listing: ObjectListing = null
-    var splits: List[S3InputSplit] = Nil    
+    var splits: List[S3InputSplit] = Nil
     do {
-      listing = s3client.listObjects(request)     
+      listing = s3client.listObjects(request)
       val split = new S3InputSplit()
       split.setCredentials(credentials)
       split.bucket = bucket
       // avoid including "directories" in the input split, can cause 403 errors on GET
       split.keys = listing.getObjectSummaries.map(_.getKey).filterNot(_ endsWith "/")
-    
+
       splits = split :: splits
       request.setMarker(listing.getNextMarker)
     } while (listing.isTruncated)
-  
+
     splits
   }
 }
@@ -101,11 +101,11 @@ object S3InputFormat {
     val S3UrlRx(id, key, bucket, prefix) = url
 
     if (id != null && key != null) {
-      conf.set(AWS_ID, id)  
-      conf.set(AWS_KEY, key)  
+      conf.set(AWS_ID, id)
+      conf.set(AWS_KEY, key)
     }
     conf.set(BUCKET, bucket)
-    conf.set(PREFIX, prefix)        
+    conf.set(PREFIX, prefix)
   }
 
   def setBucket(job: Job, bucket: String) ={

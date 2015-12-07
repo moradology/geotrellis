@@ -9,6 +9,8 @@ import geotrellis.vector._
 
 import geotrellis.spark.testfiles._
 
+import org.apache.hadoop.fs.Path
+
 import org.scalatest._
 import java.io.File
 
@@ -20,7 +22,7 @@ class HadoopSlippyTileWriterSpec
     with RasterRDDMatchers
     with OnlyIfCanRunSpark {
   describe("HadoopSlippyTileWriter") {
-    val testPath = new File(outputLocalPath, "slippy-write-test").getPath
+    val testPath = new Path(new Path(outputLocalPath.getPath), "slippy-write-test")
 
     ifCanRunSpark {
       it("can write and read slippy tiles") {
@@ -31,13 +33,12 @@ class HadoopSlippyTileWriterSpec
           SingleBandGeoTiff(tile, mapTransform(key), WebMercator).toByteArray
         })
 
-        writer.write(TestFiles.ZOOM_LEVEL, AllOnesTestFile)
-
       val reader =
         new HadoopSlippyTileReader[Tile](testPath)({ (key, bytes) =>
           SingleBandGeoTiff(bytes).tile
         })
 
+        writer.write(TestFiles.ZOOM_LEVEL, AllOnesTestFile)
         rastersEqual(reader.read(TestFiles.ZOOM_LEVEL), AllOnesTestFile)
       }
 
