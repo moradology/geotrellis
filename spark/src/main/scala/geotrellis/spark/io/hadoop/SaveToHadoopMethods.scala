@@ -11,11 +11,11 @@ class SaveToHadoopMethods[K, V](rdd: RDD[(K, V)]) {
     * @param path      maps each key to full hadoop supported path
     * @param getBytes  K and V both provided in case K contains required information, like extent.
     */
-  def saveToHadoop(scheme: String, path: K => String, getBytes: (K,V) => Array[Byte]): Unit = 
+  def saveToHadoop(scheme: String, path: K => String, getBytes: (K,V) => Array[Byte]): Unit =
     setupSaveToHadoop(scheme, path, getBytes).foreach { x => }
 
   /** Sets up saving to Hadoop, but returns an RDD so that writes can be chained.
-    * 
+    *
     * @param scheme    URI scheme, used to get a hadoop FileSystem object
     * @param path      maps each key to full hadoop supported path
     * @param getBytes  K and V both provided in case K contains required information, like extent.

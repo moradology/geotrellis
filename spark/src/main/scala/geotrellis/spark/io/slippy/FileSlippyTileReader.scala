@@ -17,7 +17,7 @@ import org.apache.hadoop.fs.Path
 import java.io._
 import scala.collection.JavaConversions._
 
-class FileSlippyTileReader[T](uri: String, extensions: Seq[String] = Seq())(fromBytes: (SpatialKey, Array[Byte]) => T) extends SlippyTileReader[T] {
+class FileSlippyTileReader[T](uri: String, extensions: Seq[String] = Seq())(fromBytes: (SpatialKey, Array[Byte]) => T)(implicit sc: SparkContext) extends SlippyTileReader[T] {
   import SlippyTileReader.TilePath
 
   private def listFiles(path: String): Seq[File] =
@@ -38,7 +38,7 @@ class FileSlippyTileReader[T](uri: String, extensions: Seq[String] = Seq())(from
     }
   }
 
-  def read(zoom: Int)(implicit sc: SparkContext): RDD[(SpatialKey, T)] = {
+  def read(zoom: Int): RDD[(SpatialKey, T)] = {
     val paths = {
       listFiles(uri)
         .flatMap { file =>

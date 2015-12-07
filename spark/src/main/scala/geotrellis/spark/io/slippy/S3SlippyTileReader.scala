@@ -10,7 +10,7 @@ import org.apache.spark._
 import org.apache.spark.rdd._
 import java.io.File
 
-class S3SlippyTileReader[T](uri: String)(fromBytes: (SpatialKey, Array[Byte]) => T) extends SlippyTileReader[T] {
+class S3SlippyTileReader[T](uri: String)(fromBytes: (SpatialKey, Array[Byte]) => T)(implicit sc: SparkContext) extends SlippyTileReader[T] {
   import SlippyTileReader.TilePath
 
   val client = S3Client.default
@@ -31,7 +31,7 @@ class S3SlippyTileReader[T](uri: String)(fromBytes: (SpatialKey, Array[Byte]) =>
     }
   }
 
-  def read(zoom: Int)(implicit sc: SparkContext): RDD[(SpatialKey, T)] = {
+  def read(zoom: Int): RDD[(SpatialKey, T)] = {
     val keys = {
       client.listKeys(bucket, prefix)
         .flatMap { key =>

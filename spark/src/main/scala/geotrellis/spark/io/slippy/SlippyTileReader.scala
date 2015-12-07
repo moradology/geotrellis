@@ -25,8 +25,8 @@ trait TileByteReader[T] extends Serializable {
   def read(zoom: Int, key: SpatialKey, bytes: Array[Byte]): T
 }
 
-trait SlippyTileReader[T] {
-  def read(zoom: Int)(implicit sc: SparkContext): RDD[(SpatialKey, T)]
+trait SlippyTileReader[T] extends Serializable {
+  def read(zoom: Int): RDD[(SpatialKey, T)]
   def read(zoom: Int, key: SpatialKey): T
   def read(zoom: Int, x: Int, y: Int): T =
     read(zoom, SpatialKey(x, y))

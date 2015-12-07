@@ -28,5 +28,5 @@ trait TileByteWriter[T] extends Serializable {
 
 trait SlippyTileWriter[T] {
   def setupWrite(zoom: Int, rdd: RDD[(SpatialKey, T)]): RDD[(SpatialKey, T)]
-  def write(zoom: Int, rdd: RDD[(SpatialKey, T)]): Unit = setupWrite(zoom, rdd).foreach { x => }
+  def write(zoom: Int, rdd: RDD[(SpatialKey, T)]): Unit = setupWrite(zoom, rdd).foreach { x => () }
 }
