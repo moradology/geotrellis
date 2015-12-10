@@ -2,6 +2,7 @@ import Dependencies._
 
 javaOptions += "-Xmx8G"
 libraryDependencies ++= Seq(
+  pngj,
   spire,
   caliper,
   "com.google.guava" % "guava" % "r09",

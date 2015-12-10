@@ -65,4 +65,6 @@ object Dependencies {
   val hadoopClient  = "org.apache.hadoop" % "hadoop-client" % Version.hadoop
 
   val avro          = "org.apache.avro" % "avro" % "1.7.7"
+
+  val pngj          = "ar.com.hjg" % "pngj" % "2.1.0"
 }
