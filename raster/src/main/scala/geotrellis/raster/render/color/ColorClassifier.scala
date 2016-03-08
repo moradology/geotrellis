@@ -434,6 +434,36 @@ object StrictColorClassifier {
     apply(breaks zip colors)
   }
 
+  def fromStringDouble(str: String): Option[StrictDoubleColorClassifier] = {
+    val split = str.split(';').map(_.trim.split(':'))
+    val ndSplit = split.groupBy { pair => pair(0) != "nd" }
+    Try {
+      val breaks = ndSplit(true).map { pair => pair(0).toDouble }
+      val colors = ndSplit(true).map { pair => RGBA(BigInt(pair(1), 16).toInt) }
+      require(breaks.size == colors.size)
+      val classifier = apply(breaks zip colors)
+      ndSplit.getOrElse(false, Array[Array[String]]()).headOption map { pair =>
+        classifier.setNoDataColor(RGBA(BigInt(pair(1), 16).toInt))
+      }
+      classifier
+    }.toOption
+  }
+
+  def fromStringInt(str: String): Option[StrictIntColorClassifier] = {
+    val split = str.split(';').map(_.trim.split(':'))
+    val ndSplit = split.groupBy { pair => pair(0) != "nd" }
+    Try {
+      val breaks = ndSplit(true).map { pair => pair(0).toInt }
+      val colors = ndSplit(true).map { pair => RGBA(BigInt(pair(1), 16).toInt) }
+      require(breaks.size == colors.size)
+      val classifier = apply(breaks zip colors)
+      ndSplit.getOrElse(false, Array[Array[String]]()).headOption map { pair =>
+        classifier.setNoDataColor(RGBA(BigInt(pair(1), 16).toInt))
+      }
+      classifier
+    }.toOption
+  }
+
   def apply(classifications: Array[(Double, RGBA)]): StrictDoubleColorClassifier =
     apply(classifications, None)
 
