@@ -846,7 +846,7 @@ Extent.jts2Extent(jts.geom.Envelope)  // implicitly. This is the final `Extent`.
 `Extent => ReprojectExtent => Polygon => Line => (projected) Line => Polygon => jts.geom.Envelope => Extent`
 
 
-Layout Definitions
+Layout Definitions and Layout Schemes
 ====================
 
 **Data structures:** `LayoutDefinition`, `TileLayout`, `CellSize`
@@ -858,19 +858,46 @@ Layout Definitions
 A Layout Definition describes the location, dimensions of, and organization
 of a tiled area of a map. Conceptually, the tiled area forms a grid, and the
 Layout Definitions describes that grid's area and cell width/height.
+These definitions can be used to chop a bundle of imagery into tiles
+suitable for being served out on a web map.  
 
-Within the context of Geotrellis, the `LayoutDefinition` class extends
-`GridExtent`, and exposes methods for querying the sizes of the grid and
-grid cells. Those values are stored in the `TileLayout` (the grid
+**What is a Layout Scheme?**  
+
+The language here can be vexing, but a `LayoutScheme` can be thought of
+as a factory which produces `LayoutDefinition`s. It is the scheme
+according to which some layout definition must be defined - a layout
+definition definition, if you will. The most commonly used
+`LayoutScheme` is the `ZoomedLayoutScheme`, which provides the ability
+to generate `LayoutDefinitions` for the different zoom levels of a
+web-based map (e.g. [Leaflet](http://leafletjs.com)).  
+
+
+**How are Layout Definitions used throughout Geotrellis?**  
+
+Suppose that we've got a distributed collection of `ProjectedExtent`s
+and `Tile`s which cover some contiguous area but which were derived from
+GeoTIFFs of varying sizes. We will sometimes describe operations like this as
+'tiling'. The method which tiles a collection of imagery provided a
+`LayoutDefinition`, the underlying `CellType` of the produced tiles, and
+the `ResampleMethod` to use for generating data at new resolutions is
+`tileToLayout`. Let's take a look at its use:  
+
+```scala
+val sourceTiles: RDD[(ProjectedExtent, Tile)] = ??? // Tiles from GeoTIFF
+val cellType: CellType = IntCellType
+val layout: LayoutDefinition = ???
+val resamp: ResampleMethod = NearestNeighbor
+
+val tiled: RDD[(SpatialKey, Tile)] =
+  tiles.tileToLayout[SpatialKey](cellType, layout, resamp)
+```
+
+In essence, a `LayoutDefinition` is the minimum information required to
+describe the tiling of some map's area in Geotrellis. The `LayoutDefinition`
+class extends `GridExtent`, and exposes methods for querying the sizes of the
+grid and grid cells. Those values are stored in the `TileLayout` (the grid
 description) and `CellSize` classes respectively. `LayoutDefinition`s are
-used heavily during the raster reprojection process.
-
-In essence, a `LayoutExtent` is the minimum information required to
-describe some tiled map area in Geotrellis.
-
-**How are Layout Definitions used throughout Geotrellis?**
-
-They are used heavily when reading, writing, and reprojecting Rasters.
+most often encountered in raster reprojection processes.  
 
 Map Algebra
 ===========
@@ -881,7 +908,7 @@ there, not least
 [the book by the guy who "wrote the book" on map algebra](http://esripress.esri.com/display/index.cfm?fuseaction=display&websiteID=228&moduleID=0),
 so we will only give a brief introduction here. GeoTrellis follows Dana's
 vision of map algebra operations, although there are many operations that
-fall outside of the realm of Map Algebra that it also supports.
+fall outside of the realm of Map Algebra that it also supports.  
 
 Map Algebra operations fall into 3 general categories:
 
@@ -896,7 +923,7 @@ It wouldn't matter if the tiles were bigger or smaller - the only
 information necessary for that step in the local operation is the cell
 values that correspond to each other. A local operation happens for each
 cell value, so if the whole bottom tile was blue and the upper tile were
-yellow, then the resulting tile of the local operation would be green.
+yellow, then the resulting tile of the local operation would be green.  
 
 **Focal Operations**
 
@@ -916,7 +943,7 @@ this case the neighborhood only considers the values that are covered by the
 neighborhood. GeoTrellis also supports the idea of an analysis area, which
 is the GridBounds that the focal operation carries over, in order to support
 composing tiles with border tiles in order to support distributed focal
-operation processing.
+operation processing.  
 
 **Zonal Operations**
 
@@ -926,7 +953,7 @@ corresponding cells in the input tile belong to. For example, if you are
 doing a `zonalStatistics` operation, and the zonal tile has a distribution
 of zone 1, zone 2, and zone 3 values, we will get back the statistics such
 as mean, median and mode for all cells in the input tile that correspond to
-each of those zone values.
+each of those zone values.  
 
 **How to use Map Algebra operations**
 
