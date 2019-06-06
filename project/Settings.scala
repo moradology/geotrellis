@@ -484,8 +484,8 @@ object Settings {
       """
   ) ++ noForkInTests
 
-  lazy val s3 = Seq(
-    name := "geotrellis-s3",
+  lazy val `s3-spark` = Seq(
+    name := "geotrellis-s3-spark",
     libraryDependencies ++= Seq(
       sparkCore % Provided,
       awsSdkS3,
@@ -515,8 +515,11 @@ object Settings {
       import geotrellis.vector._
       import geotrellis.proj4._
       import geotrellis.tiling._
+      import geotrellis.layers._
+      import geotrellis.store.s3._
+      import geotrellis.layers.util._
       import geotrellis.spark._
-      import geotrellis.spark.util._
+      import geotrellis.spark.store.s3._
       """
   ) ++ noForkInTests
 

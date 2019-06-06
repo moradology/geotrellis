@@ -116,7 +116,8 @@ lazy val root = Project("geotrellis", file(".")).
     proj4,
     raster,
     `raster-testkit`,
-    s3,
+    `s3-store`,
+    `s3-spark`,
     shapefile,
     spark,
     `spark-pipeline`,
@@ -203,14 +204,14 @@ lazy val `s3-store` = project
   .settings(commonSettings)
   .settings(Settings.`s3-store`)
 
-lazy val s3 = project
+lazy val `s3-spark` = project
   .dependsOn(
     spark % "compile->compile;test->test",  // <-- spark-testkit update should simplify this
     `s3-store`,
     `spark-testkit` % Test
   )
   .settings(commonSettings)
-  .settings(Settings.s3)
+  .settings(Settings.`s3-spark`)
 
 lazy val `accumulo-store` = project
   .dependsOn(layers)

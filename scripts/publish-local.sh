@@ -25,4 +25,5 @@
 ./sbt "project geowave" publishLocal && \
 ./sbt "project hbase-store" publishLocal && \
 ./sbt "project hbase-spark" publishLocal && \
-./sbt "project s3" publishLocal
+./sbt "project s3-store" publishLocal && \
+./sbt "project s3-spark" publishLocal

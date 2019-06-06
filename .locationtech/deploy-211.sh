@@ -8,7 +8,8 @@
    && ./sbt "project proj4" publish -no-colors \
    && ./sbt "project raster" publish -no-colors \
    && ./sbt "project spark" publish -no-colors \
-   && ./sbt "project s3" publish -no-colors \
+   && ./sbt "project s3-store" publish -no-colors \
+   && ./sbt "project s3-spark" publish -no-colors \
    && ./sbt "project accumulo-store" publish -no-colors \
    && ./sbt "project accumulo-spark" publish -no-colors \
    && ./sbt "project hbase-store" publish -no-colors \
