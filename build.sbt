@@ -258,7 +258,7 @@ lazy val `hbase-spark` = project
   .settings(projectDependencies := { Seq((projectID in spark).value.exclude("com.google.protobuf", "protobuf-java")) })
 
 lazy val `spark-pipeline` = Project(id = "spark-pipeline", base = file("spark-pipeline")).
-  dependsOn(spark, s3, `spark-testkit` % "test").
+  dependsOn(spark, `s3-spark`, `spark-testkit` % "test").
   settings(commonSettings)
   .settings(Settings.`spark-pipeline`)
 
@@ -294,7 +294,7 @@ lazy val util = project
   .settings(Settings.util)
 
 lazy val `doc-examples` = project
-  .dependsOn(spark, s3, `accumulo-spark`, `cassandra-spark`, `hbase-spark`, spark, `spark-testkit`, `spark-pipeline`)
+  .dependsOn(spark, `s3-spark`, `accumulo-spark`, `cassandra-spark`, `hbase-spark`, spark, `spark-testkit`, `spark-pipeline`)
   .settings(commonSettings)
   .settings(Settings.`doc-examples`)
 
