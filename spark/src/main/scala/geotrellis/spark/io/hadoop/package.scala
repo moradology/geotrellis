@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io
+package geotrellis.spark.spark
 
 
 package object hadoop extends Implicits

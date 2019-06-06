@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.slippy
+package geotrellis.spark.spark.slippy
 
 import geotrellis.tiling.SpatialKey
 import geotrellis.spark._
-import geotrellis.spark.io.hadoop._
+import geotrellis.spark.spark.hadoop._
 
 import org.apache.spark._
 import org.apache.spark.rdd._

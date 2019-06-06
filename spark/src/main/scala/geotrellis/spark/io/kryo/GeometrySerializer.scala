@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.kryo
+package geotrellis.spark.spark.kryo
 
 import geotrellis.vector.Geometry
 import geotrellis.vector.io.wkb.WKB

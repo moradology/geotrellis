@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.http.util
+package geotrellis.spark.spark.http.util
 
 import geotrellis.util.RangeReader
 

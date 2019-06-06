@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.slippy
+package geotrellis.spark.spark.slippy
 
 import geotrellis.tiling.SpatialKey
 import geotrellis.spark._

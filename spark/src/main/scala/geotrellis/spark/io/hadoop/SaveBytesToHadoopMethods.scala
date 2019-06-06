@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.hadoop
+package geotrellis.spark.spark.hadoop
 
 import geotrellis.tiling.SpatialKey
 import geotrellis.spark.render._

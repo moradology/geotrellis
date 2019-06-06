@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.kryo
+package geotrellis.spark.spark.kryo
 
 import org.apache.spark.serializer.{KryoRegistrator => SparkKryoRegistrator}
 import com.esotericsoftware.kryo.Kryo
