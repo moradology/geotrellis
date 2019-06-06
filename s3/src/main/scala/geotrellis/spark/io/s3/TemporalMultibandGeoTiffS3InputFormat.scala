@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.raster._
 import geotrellis.raster.io.geotiff._

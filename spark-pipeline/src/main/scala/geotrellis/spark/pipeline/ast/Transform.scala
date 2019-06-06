@@ -29,7 +29,7 @@ import geotrellis.tiling._
 import geotrellis.layers.avro.AvroRecordCodec
 import geotrellis.spark.tiling.TilerKeyMethods
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.pipeline.json.transform.{Pyramid => JsonPyramid}
 import geotrellis.spark.pipeline.json.transform._
 import geotrellis.spark.pyramid.Pyramid

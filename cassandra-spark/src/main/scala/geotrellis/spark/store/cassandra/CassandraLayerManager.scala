@@ -21,7 +21,7 @@ import geotrellis.layers._
 import geotrellis.store.cassandra._
 import geotrellis.layers.avro.AvroRecordCodec
 import geotrellis.layers.index._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.util._
 
 import org.apache.spark.SparkContext

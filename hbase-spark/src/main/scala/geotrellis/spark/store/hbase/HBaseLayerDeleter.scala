@@ -18,7 +18,7 @@ package geotrellis.spark.store.hbase
 
 import geotrellis.layers._
 import geotrellis.store.hbase._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import com.typesafe.scalalogging.LazyLogging
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.filter.PrefixFilter

@@ -17,7 +17,7 @@
 package geotrellis.spark.store.hbase
 
 import geotrellis.store.hbase._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.store._
 import geotrellis.layers.{AttributeStore, ValueReader}
 import geotrellis.spark.HBaseTestEnvironment

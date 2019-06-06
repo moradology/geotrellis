@@ -20,7 +20,7 @@ import geotrellis.layers._
 import geotrellis.store.hbase.conf.HBaseConfig
 import geotrellis.store.hbase._
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.util.UriUtils
 import org.apache.spark.SparkContext
 import java.net.URI

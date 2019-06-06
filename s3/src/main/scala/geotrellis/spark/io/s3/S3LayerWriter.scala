@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.tiling._
 import geotrellis.layers._
@@ -25,7 +25,7 @@ import geotrellis.layers.merge.Mergable
 import geotrellis.store.s3._
 import geotrellis.store.s3.conf.S3Config
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.merge._
 import geotrellis.util._
 

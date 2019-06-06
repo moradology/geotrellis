@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs.KeyValueRecordCodec
 import geotrellis.store.s3._

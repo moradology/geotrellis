@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3.geotiff
+package geotrellis.spark.store.s3.geotiff
 
 import geotrellis.raster.io.geotiff.reader.TiffTagsReader
 import geotrellis.store.s3.{S3ClientProducer, AmazonS3URI}
 import geotrellis.store.s3.util.S3RangeReader
-import geotrellis.spark.io.hadoop.geotiff.GeoTiffMetadata
+import geotrellis.spark.store.hadoop.geotiff.GeoTiffMetadata
 import geotrellis.util.StreamingByteReader
 import geotrellis.util.annotations.experimental
 

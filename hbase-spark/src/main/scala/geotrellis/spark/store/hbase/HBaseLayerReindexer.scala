@@ -19,7 +19,7 @@ package geotrellis.spark.store.hbase
 import geotrellis.store.hbase._
 import geotrellis.tiling.{Boundable, Bounds}
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.layers._
 import geotrellis.layers.avro._
 import geotrellis.layers.index._

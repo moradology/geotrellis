@@ -21,7 +21,7 @@ import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.store.cassandra._
 import geotrellis.store.cassandra.conf.CassandraConfig
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.util.KryoWrapper
 
 import com.datastax.driver.core.DataType._

@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.store.s3.S3ClientProducer
-import geotrellis.spark.io.hadoop._
+import geotrellis.spark.store.hadoop._
 
 import com.typesafe.scalalogging.LazyLogging
 

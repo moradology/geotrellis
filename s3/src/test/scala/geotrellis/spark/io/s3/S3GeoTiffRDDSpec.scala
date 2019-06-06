@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.raster._
 import geotrellis.raster.io.geotiff._
 import geotrellis.raster.testkit.RasterMatchers
 import geotrellis.tiling._
 import geotrellis.spark._
-import geotrellis.spark.io.s3.testkit._
+import geotrellis.spark.store.s3.testkit._
 import geotrellis.spark.testkit.TestEnvironment
 import geotrellis.vector._
 

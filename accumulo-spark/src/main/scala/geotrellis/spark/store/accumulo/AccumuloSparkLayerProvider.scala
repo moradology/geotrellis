@@ -19,7 +19,7 @@ package geotrellis.spark.store.accumulo
 import geotrellis.layers._
 import geotrellis.store.accumulo._
 import geotrellis.store.accumulo.conf.AccumuloConfig
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.util.UriUtils
 
 import org.apache.spark.SparkContext

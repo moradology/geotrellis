@@ -1,4 +1,4 @@
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import org.apache.spark.rdd.RDD
 

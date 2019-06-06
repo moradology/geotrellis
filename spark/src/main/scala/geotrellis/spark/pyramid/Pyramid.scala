@@ -22,7 +22,7 @@ import geotrellis.layers.avro._
 import geotrellis.layers.index.KeyIndexMethod
 import geotrellis.layers.json._
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.tiling._
 import geotrellis.raster._
 import geotrellis.raster.merge._

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.tiling.SpatialKey
 import geotrellis.layers.LayerId
 import geotrellis.store.s3._
 import geotrellis.store.s3.conf.S3Config
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 
 import software.amazon.awssdk.services.s3.model.{PutObjectRequest, PutObjectResponse, S3Exception}
 import software.amazon.awssdk.services.s3.S3Client

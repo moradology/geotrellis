@@ -9,12 +9,12 @@ object COGSparkExamples {
     import geotrellis.raster.resample._
     import geotrellis.tiling.{SpatialKey, KeyBounds, FloatingLayoutScheme}
     import geotrellis.spark._
-    import geotrellis.spark.io._
+    import geotrellis.spark.store._
     import geotrellis.layers.index.ZCurveKeyIndexMethod
     import geotrellis.layers._
     import geotrellis.layers.file._
     import geotrellis.layers.file.cog._
-    import geotrellis.spark.io.file.cog._
+    import geotrellis.spark.store.file.cog._
     import geotrellis.spark.tiling.Tiler
     import geotrellis.vector._
     import geotrellis.proj4.WebMercator
@@ -129,7 +129,7 @@ object COGSparkExamples {
     import geotrellis.raster.io.geotiff.Auto
     import geotrellis.tiling.ZoomedLayoutScheme
     import geotrellis.spark._
-    import geotrellis.spark.io.file.geotiff._
+    import geotrellis.spark.store.file.geotiff._
     import geotrellis.proj4.WebMercator
     import java.net.URI
 

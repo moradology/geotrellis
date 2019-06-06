@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.proj4.LatLng
 import geotrellis.raster._
 import geotrellis.tiling._
 import geotrellis.spark._
-import geotrellis.spark.io.hadoop._
+import geotrellis.spark.store.hadoop._
 import geotrellis.spark.ingest._
 import geotrellis.util.Filesystem
-import geotrellis.spark.io.s3.testkit._
+import geotrellis.spark.store.s3.testkit._
 import geotrellis.spark.testkit.TestEnvironment
 
 import software.amazon.awssdk.services.s3.model._

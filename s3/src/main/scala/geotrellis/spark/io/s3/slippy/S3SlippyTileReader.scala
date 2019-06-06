@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.slippy
+package geotrellis.spark.store.slippy
 
 import geotrellis.vector._
 import geotrellis.raster._
@@ -22,7 +22,7 @@ import geotrellis.raster.io.geotiff._
 import geotrellis.tiling.SpatialKey
 import geotrellis.store.s3._
 import geotrellis.spark._
-import geotrellis.spark.io.s3._
+import geotrellis.spark.store.s3._
 import geotrellis.util.Filesystem
 
 import software.amazon.awssdk.services.s3.S3Client

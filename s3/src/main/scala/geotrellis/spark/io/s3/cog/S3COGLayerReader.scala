@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3.cog
+package geotrellis.spark.store.s3.cog
 
 import geotrellis.raster.CellGrid
 import geotrellis.raster.io.geotiff.reader.GeoTiffReader
@@ -26,9 +26,9 @@ import geotrellis.store.s3._
 import geotrellis.store.s3.cog._
 import geotrellis.store.s3.conf.S3Config
 import geotrellis.spark._
-import geotrellis.spark.io._
-import geotrellis.spark.io.s3._
-import geotrellis.spark.io.cog._
+import geotrellis.spark.store._
+import geotrellis.spark.store.s3._
+import geotrellis.spark.store.cog._
 import geotrellis.util._
 
 import software.amazon.awssdk.services.s3._

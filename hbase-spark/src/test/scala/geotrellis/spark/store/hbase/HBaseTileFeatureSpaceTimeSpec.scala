@@ -22,7 +22,7 @@ import geotrellis.tiling.SpaceTimeKey
 import geotrellis.layers.TileLayerMetadata
 import geotrellis.spark.HBaseTestEnvironment
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.store._
 import geotrellis.spark.testkit.io._
 import geotrellis.spark.testkit.testfiles.TestTileFeatureFiles

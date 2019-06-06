@@ -21,7 +21,7 @@ import geotrellis.raster.{Tile, TileFeature}
 import geotrellis.layers._
 import geotrellis.store.accumulo._
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.layers.index._
 import geotrellis.spark.testkit.io._
 import geotrellis.spark.testkit.testfiles.TestTileFeatureFiles

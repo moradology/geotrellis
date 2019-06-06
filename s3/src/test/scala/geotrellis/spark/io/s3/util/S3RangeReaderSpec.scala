@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3.util
+package geotrellis.spark.store.s3.util
 
 import java.nio.file.{ Paths, Files }
 import java.nio.ByteBuffer
 import geotrellis.store.s3.util._
 import geotrellis.util._
-import geotrellis.spark.io.s3._
-import geotrellis.spark.io.s3.testkit._
+import geotrellis.spark.store.s3._
+import geotrellis.spark.store.s3.testkit._
 import spire.syntax.cfor._
 
 import software.amazon.awssdk.core.sync.RequestBody

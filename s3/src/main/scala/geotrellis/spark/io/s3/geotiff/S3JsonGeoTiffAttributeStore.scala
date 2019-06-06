@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3.geotiff
+package geotrellis.spark.store.s3.geotiff
 
 import geotrellis.store.s3.{AmazonS3URI, S3ClientProducer}
-import geotrellis.spark.io.hadoop.geotiff._
+import geotrellis.spark.store.hadoop.geotiff._
 import geotrellis.util.annotations.experimental
 
 import software.amazon.awssdk.services.s3.S3Client

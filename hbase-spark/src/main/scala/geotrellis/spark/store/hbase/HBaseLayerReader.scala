@@ -21,7 +21,7 @@ import geotrellis.layers.avro._
 import geotrellis.store.hbase._
 import geotrellis.tiling.{Boundable, Bounds, EmptyBounds, KeyBounds}
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.util._
 import org.apache.spark.SparkContext
 import spray.json._

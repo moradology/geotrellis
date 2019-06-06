@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.tiling.Boundable
 import geotrellis.layers._
 import geotrellis.layers.avro._
 import geotrellis.layers.index.KeyIndexMethod
 import geotrellis.store.s3._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.util._
 
 import org.apache.spark.SparkContext

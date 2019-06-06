@@ -18,7 +18,7 @@ package geotrellis.spark.store.cassandra
 
 import geotrellis.layers._
 import geotrellis.store.cassandra._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 
 import org.apache.spark.SparkContext
 

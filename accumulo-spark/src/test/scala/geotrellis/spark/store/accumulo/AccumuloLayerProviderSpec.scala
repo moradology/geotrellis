@@ -18,7 +18,7 @@ package geotrellis.spark.store.accumulo
 
 import geotrellis.layers._
 import geotrellis.store.accumulo._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.testkit.TestEnvironment
 import org.scalatest._
 

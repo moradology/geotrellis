@@ -19,7 +19,7 @@ package geotrellis.spark.store.accumulo
 import geotrellis.layers.{LayerId, LayerHeader}
 import geotrellis.store.accumulo._
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import org.apache.accumulo.core.client.security.tokens.PasswordToken
 
 class AccumuloAttributeStoreSpec extends AttributeStoreSpec {

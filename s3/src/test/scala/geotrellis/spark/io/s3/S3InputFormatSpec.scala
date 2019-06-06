@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
-import geotrellis.spark.io.s3.testkit._
+import geotrellis.spark.store.s3.testkit._
 import geotrellis.proj4.LatLng
 import geotrellis.raster.Tile
 import geotrellis.spark.testkit.TestEnvironment

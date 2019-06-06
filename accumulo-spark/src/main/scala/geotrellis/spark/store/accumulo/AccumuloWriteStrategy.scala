@@ -20,7 +20,7 @@ import geotrellis.store.accumulo._
 import geotrellis.store.accumulo.conf.AccumuloConfig
 import geotrellis.layers.hadoop._
 import geotrellis.spark.util._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 
 import org.apache.hadoop.mapreduce.Job
 import org.apache.hadoop.fs.Path

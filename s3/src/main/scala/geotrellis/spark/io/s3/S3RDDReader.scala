@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.tiling.{KeyBounds, Boundable}
 import geotrellis.layers.avro.{AvroEncoder, AvroRecordCodec}
@@ -24,7 +24,7 @@ import geotrellis.layers.util.{IOUtils => GTIOUtils}
 import geotrellis.store.s3.S3ClientProducer
 import geotrellis.store.s3.conf.S3Config
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.util.KryoWrapper
 
 import software.amazon.awssdk.services.s3.model.{S3Exception, GetObjectRequest}

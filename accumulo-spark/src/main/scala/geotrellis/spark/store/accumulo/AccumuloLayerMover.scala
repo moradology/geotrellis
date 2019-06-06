@@ -21,7 +21,7 @@ import geotrellis.store.accumulo._
 import geotrellis.layers.avro._
 import geotrellis.layers.index._
 import geotrellis.layers.json._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.util._
 
 import org.apache.spark.SparkContext

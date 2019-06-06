@@ -19,7 +19,7 @@ package geotrellis.spark.store.cassandra
 import geotrellis.layers._
 import geotrellis.store.cassandra._
 import geotrellis.store.cassandra.conf.CassandraConfig
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.util.UriUtils
 
 import org.apache.spark.SparkContext

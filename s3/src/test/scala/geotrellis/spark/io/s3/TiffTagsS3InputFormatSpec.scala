@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.raster.io.geotiff.tags.TiffTags
 import geotrellis.spark._
 import geotrellis.spark.testkit.TestEnvironment
-import geotrellis.spark.io.hadoop._
-import geotrellis.spark.io.s3.testkit._
+import geotrellis.spark.store.hadoop._
+import geotrellis.spark.store.s3.testkit._
 
 import software.amazon.awssdk.services.s3.model._
 import software.amazon.awssdk.core.sync.RequestBody

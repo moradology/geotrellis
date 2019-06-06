@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3.cog
+package geotrellis.spark.store.s3.cog
 
 import geotrellis.layers._
 import geotrellis.store.s3._
 import geotrellis.spark._
-import geotrellis.spark.io._
-import geotrellis.spark.io.cog._
-import geotrellis.spark.io.s3._
-import geotrellis.spark.io.s3.testkit._
+import geotrellis.spark.store._
+import geotrellis.spark.store.cog._
+import geotrellis.spark.store.s3._
+import geotrellis.spark.store.s3.testkit._
 
 class COGS3AttributeStoreSpec extends COGAttributeStoreSpec {
   val bucket = "attribute-store-test-mock-bucket"

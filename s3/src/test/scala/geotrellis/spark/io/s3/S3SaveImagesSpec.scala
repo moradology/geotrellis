@@ -23,9 +23,9 @@ import geotrellis.store.s3._
 import geotrellis.spark.testkit.TestEnvironment
 import geotrellis.spark.render._
 import geotrellis.spark.testkit.testfiles.TestFiles
-import geotrellis.spark.io.s3._
-import geotrellis.spark.io.s3.testkit._
-import geotrellis.spark.io.s3.SaveToS3
+import geotrellis.spark.store.s3._
+import geotrellis.spark.store.s3.testkit._
+import geotrellis.spark.store.s3.SaveToS3
 
 import software.amazon.awssdk.services.s3.S3Client
 import software.amazon.awssdk.services.s3.model._

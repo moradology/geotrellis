@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3.testkit
+package geotrellis.spark.store.s3.testkit
 
-import geotrellis.spark.io.s3._
+import geotrellis.spark.store.s3._
 
 import software.amazon.awssdk.http.AbortableInputStream
 import software.amazon.awssdk.core.ResponseInputStream

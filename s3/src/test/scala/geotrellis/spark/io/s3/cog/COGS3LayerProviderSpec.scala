@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3.cog
+package geotrellis.spark.store.s3.cog
 
 import geotrellis.layers._
 import geotrellis.layers.cog._
 import geotrellis.store.s3._
 import geotrellis.store.s3.cog._
-import geotrellis.spark.io._
-import geotrellis.spark.io.s3._
-import geotrellis.spark.io.cog._
+import geotrellis.spark.store._
+import geotrellis.spark.store.s3._
+import geotrellis.spark.store.cog._
 import geotrellis.spark.testkit.TestEnvironment
-import geotrellis.spark.io.s3.testkit._
+import geotrellis.spark.store.s3.testkit._
 
 import org.scalatest._
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.geowave
+package geotrellis.spark.store.geowave
 
 import geotrellis.proj4.LatLng
 import geotrellis.vector.Extent

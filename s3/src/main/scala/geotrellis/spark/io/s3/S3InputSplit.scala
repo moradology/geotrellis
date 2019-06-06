@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import com.typesafe.scalalogging.LazyLogging
 import software.amazon.awssdk.services.s3.model.S3Object

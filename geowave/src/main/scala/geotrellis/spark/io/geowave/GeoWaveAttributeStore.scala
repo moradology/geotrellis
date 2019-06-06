@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.geowave
+package geotrellis.spark.store.geowave
 
 import geotrellis.vector.Extent
 import geotrellis.geotools._
@@ -23,7 +23,7 @@ import geotrellis.raster._
 import geotrellis.layers._
 import geotrellis.store.accumulo.AccumuloAttributeStore
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.util._
 import geotrellis.util.annotations.experimental
 

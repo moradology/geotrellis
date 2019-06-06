@@ -18,7 +18,7 @@ package geotrellis.spark.store.hbase
 
 import geotrellis.layers.LayerId
 import geotrellis.store.hbase._
-import geotrellis.spark.io.LayerWriter
+import geotrellis.spark.store.LayerWriter
 import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.spark.util.KryoWrapper

@@ -21,7 +21,7 @@ import geotrellis.layers._
 import geotrellis.layers.avro._
 import geotrellis.store.cassandra._
 import geotrellis.spark.ContextRDD
-import geotrellis.spark.io.FilteringLayerReader
+import geotrellis.spark.store.FilteringLayerReader
 import geotrellis.util._
 
 import org.apache.spark.SparkContext

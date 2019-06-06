@@ -17,7 +17,7 @@
 package geotrellis.spark.mapalgebra.zonal
 
 import geotrellis.spark._
-import geotrellis.spark.io.hadoop._
+import geotrellis.spark.store.hadoop._
 import geotrellis.spark.testkit.testfiles._
 import geotrellis.raster._
 import geotrellis.raster.histogram.Histogram

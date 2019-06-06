@@ -30,8 +30,8 @@ import geotrellis.layers.cog.{COGCollectionLayerReader, COGValueReader}
 import geotrellis.layers.index._
 import geotrellis.layers.json._
 import geotrellis.spark._
-import geotrellis.spark.io._
-import geotrellis.spark.io.cog._
+import geotrellis.spark.store._
+import geotrellis.spark.store.cog._
 import geotrellis.spark.testkit.io._
 import geotrellis.spark.testkit.testfiles.cog.COGTestFiles
 import geotrellis.util._

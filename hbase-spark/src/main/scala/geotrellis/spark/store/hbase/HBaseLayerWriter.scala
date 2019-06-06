@@ -19,7 +19,7 @@ package geotrellis.spark.store.hbase
 import geotrellis.store.hbase._
 import geotrellis.tiling.{Boundable, Bounds}
 import geotrellis.spark._
-import geotrellis.spark.io.LayerWriter
+import geotrellis.spark.store.LayerWriter
 import geotrellis.spark.merge._
 import geotrellis.layers._
 import geotrellis.layers.avro._

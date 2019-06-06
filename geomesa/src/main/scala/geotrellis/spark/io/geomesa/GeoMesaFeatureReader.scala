@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.geomesa
+package geotrellis.spark.store.geomesa
 
 import geotrellis.geotools._
 import geotrellis.spark._

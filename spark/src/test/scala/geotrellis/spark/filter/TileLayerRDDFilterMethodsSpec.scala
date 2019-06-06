@@ -23,7 +23,7 @@ import geotrellis.raster.{FloatConstantNoDataCellType, GridBounds, TileLayout}
 import geotrellis.raster.io.geotiff.SinglebandGeoTiff
 import geotrellis.layers._
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.tiling._
 import geotrellis.spark.testkit._
 

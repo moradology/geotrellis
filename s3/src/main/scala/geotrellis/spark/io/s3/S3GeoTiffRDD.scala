@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package geotrellis.spark.io.s3
+package geotrellis.spark.store.s3
 
 import geotrellis.proj4._
 import geotrellis.raster._
@@ -22,7 +22,7 @@ import geotrellis.tiling._
 import geotrellis.layers._
 import geotrellis.store.s3._
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.vector._
 
 import software.amazon.awssdk.services.s3.S3Client

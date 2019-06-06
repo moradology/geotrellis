@@ -22,7 +22,7 @@ import geotrellis.tiling.SpaceTimeKey
 import geotrellis.layers._
 import geotrellis.store.cassandra._
 import geotrellis.spark._
-import geotrellis.spark.io._
+import geotrellis.spark.store._
 import geotrellis.spark.testkit.io._
 import geotrellis.spark.testkit.testfiles.TestFiles
 import geotrellis.spark.testkit.TestEnvironment

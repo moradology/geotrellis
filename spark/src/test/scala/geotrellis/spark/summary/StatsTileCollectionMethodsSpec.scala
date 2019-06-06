@@ -22,7 +22,7 @@ import geotrellis.raster.io.geotiff._
 import geotrellis.tiling._
 import geotrellis.layers.TileLayerCollection
 import geotrellis.spark._
-import geotrellis.spark.io.hadoop._
+import geotrellis.spark.store.hadoop._
 import geotrellis.spark.testkit.testfiles._
 import geotrellis.spark.testkit._
 
