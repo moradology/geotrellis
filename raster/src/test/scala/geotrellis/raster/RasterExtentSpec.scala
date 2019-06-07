@@ -20,6 +20,7 @@ import geotrellis.vector.Extent
 import geotrellis.raster.testkit._
 
 import org.scalatest._
+import cats.implicits._
 
 class RasterExtentSpec extends FunSpec with Matchers
                                        with TileBuilders {

@@ -17,10 +17,14 @@
 package geotrellis.raster
 
 import geotrellis.vector.{Extent, Point}
+import geotrellis.util.Constants
 
-import scala.math.{min, max, ceil}
 import spire.math.{Integral}
 import spire.implicits._
+import cats.SemigroupK
+import cats.implicits._
+
+import scala.math.{min, max, ceil}
 
 /**
   * Represents an abstract grid over geographic extent.
@@ -60,13 +64,13 @@ class GridExtent[@specialized(Int, Long) N: Integral](
   * same cellsizes).  The result is a new extent at the same
   * resolution.
   */
-  def combine (that: GridExtent[N]): GridExtent[N] = {
+  def expandToInclude (that: GridExtent[N]): GridExtent[N] = {
     if (cellwidth != that.cellwidth)
       throw GeoAttrsError(s"illegal cellwidths: $cellwidth and ${that.cellwidth}")
     if (cellheight != that.cellheight)
       throw GeoAttrsError(s"illegal cellheights: $cellheight and ${that.cellheight}")
 
-    val newExtent = extent.combine(that.extent)
+    val newExtent = extent.expandToInclude(that.extent)
     val newRows = ceil(newExtent.height / cellheight)
     val newCols = ceil(newExtent.width / cellwidth)
 
@@ -174,7 +178,7 @@ class GridExtent[@specialized(Int, Long) N: Integral](
     val colMax: N = Integral[N].fromLong {
       val colMaxDouble = mapXToGridDouble(subExtent.xmax)
 
-      if (math.abs(colMaxDouble - floorWithTolerance(colMaxDouble)) < GridExtent.epsilon)
+      if (math.abs(colMaxDouble - floorWithTolerance(colMaxDouble)) < Constants.DOUBLE_EPSILON)
         colMaxDouble.toLong - 1L
       else
         colMaxDouble.toLong
@@ -183,7 +187,7 @@ class GridExtent[@specialized(Int, Long) N: Integral](
     val rowMax: N = Integral[N].fromLong {
       val rowMaxDouble = mapYToGridDouble(subExtent.ymin)
 
-      if (math.abs(rowMaxDouble - floorWithTolerance(rowMaxDouble)) < GridExtent.epsilon)
+      if (math.abs(rowMaxDouble - floorWithTolerance(rowMaxDouble)) < Constants.DOUBLE_EPSILON)
         rowMaxDouble.toLong - 1L
       else
         rowMaxDouble.toLong
@@ -265,7 +269,7 @@ class GridExtent[@specialized(Int, Long) N: Integral](
     * This is true when the extent is evenly divided by cellheight and cellwidth.
     */
   def isGridExtentAligned(): Boolean = {
-    def isWhole(x: Double) = math.abs(math.floor(x) - x) < geotrellis.util.Constants.DOUBLE_EPSILON
+    def isWhole(x: Double) = math.abs(math.floor(x) - x) < Constants.DOUBLE_EPSILON
     isWhole((extent.xmax - extent.xmin) / cellwidth) && isWhole((extent.ymax - extent.ymin) / cellheight)
   }
 
@@ -356,8 +360,6 @@ class GridExtent[@specialized(Int, Long) N: Integral](
 
 
 object GridExtent {
-  final val epsilon = 0.0000001
-
   def apply[N: Integral](extent: Extent, cellSize: CellSize): GridExtent[N] = {
     new GridExtent[N](extent, cellSize)
   }
@@ -374,6 +376,12 @@ object GridExtent {
     new GridExtent[N](extent, cw, ch, grid.cols, grid.rows)
   }
 
+  implicit def gridExtentMergeSemigroupK: SemigroupK[GridExtent] = new SemigroupK[GridExtent] {
+    def combineK[T](x: GridExtent[T], y: GridExtent[T]): GridExtent[T] = {
+      x expandToInclude y
+    }
+  }
+
   /** RasterSource interface reads GridBounds[Long] but GridBounds[Int] abounds.
    * Implicit conversions are evil, but this one is always safe and saves typing.
    */
@@ -388,7 +396,7 @@ object GridExtent {
     * */
   def floorWithTolerance(value: Double): Double = {
     val roundedValue = math.round(value)
-    if (math.abs(value - roundedValue) < GridExtent.epsilon) roundedValue
+    if (math.abs(value - roundedValue) < Constants.DOUBLE_EPSILON) roundedValue
     else math.floor(value)
   }
 }

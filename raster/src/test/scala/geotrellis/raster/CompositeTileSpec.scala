@@ -21,8 +21,8 @@ import geotrellis.vector.Extent
 import geotrellis.raster.testkit._
 
 import org.scalatest._
-
 import spire.syntax.cfor._
+import cats.implicits._
 
 class CompositeTileSpec extends FunSpec
                                 with TileBuilders

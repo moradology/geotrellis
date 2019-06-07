@@ -26,13 +26,12 @@ import geotrellis.spark._
 import geotrellis.spark.reproject.Reproject.Options
 import geotrellis.spark.testkit._
 import geotrellis.vector._
-
 import geotrellis.proj4._
 
 import spire.syntax.cfor._
-
 import org.apache.spark._
 import org.scalatest.FunSpec
+import cats.implicits._
 
 class TileRDDReprojectSpec extends FunSpec with TestEnvironment {
 
@@ -233,17 +232,13 @@ class TileRDDReprojectSpec extends FunSpec with TestEnvironment {
       val mbrdd = ContextRDD(rdd.mapValues { tile => TileFeature(tile, 1) }, rdd.metadata)
       // Must define a way to combine tile feature data when reprojecting from multiple tiles to one
       import cats.Monoid
-      implicit val intAdditionMonoid: Monoid[Int] = new Monoid[Int] {
-        def empty: Int = 0
-        def combine(x: Int, y: Int): Int = x + y
-      }
 
       //// If method .reproject could not be found we would need to look for implicit paramter to TileRDDReprojectMethods constructor
       // import geotrellis.raster.stitch._
       // import geotrellis.raster.crop._
       // import geotrellis.raster.merge._
       // import geotrellis.raster.prototype._
-       
+
       // val st1 = implicitly[Stitcher[Tile]]
       // val st2 = implicitly[Stitcher[TileFeature[Tile, Int]]]
       // val st3 = implicitly[RasterRegionReproject[TileFeature[Tile, Int]]]

@@ -18,17 +18,25 @@ package geotrellis.layers.cog
 
 import geotrellis.layers.index._
 import geotrellis.tiling._
+
 import spray.json.DefaultJsonProtocol._
 import spray.json._
+import cats.Semigroup
+import cats.implicits._
 
 import scala.reflect._
 
-case class COGLayerStorageMetadata[K](metadata: COGLayerMetadata[K], keyIndexes: Map[ZoomRange, KeyIndex[K]]) {
-  def combine(other: COGLayerStorageMetadata[K])(implicit ev: Boundable[K]): COGLayerStorageMetadata[K] =
-    COGLayerStorageMetadata(metadata.combine(other.metadata), other.keyIndexes)
-}
+case class COGLayerStorageMetadata[K](metadata: COGLayerMetadata[K], keyIndexes: Map[ZoomRange, KeyIndex[K]])
 
 object COGLayerStorageMetadata {
+
+  implicit def cogLayerStorageMetadataSemigroup[K: Boundable](implicit sg: Semigroup[COGLayerMetadata[K]]): Semigroup[COGLayerStorageMetadata[K]] =
+    new Semigroup[COGLayerStorageMetadata[K]] {
+      def combine(x: COGLayerStorageMetadata[K], y: COGLayerStorageMetadata[K]): COGLayerStorageMetadata[K] = {
+        COGLayerStorageMetadata(x.metadata.combine(y.metadata), y.keyIndexes)
+      }
+    }
+
   implicit def cogLayerStorageMetadataFormat[K: SpatialComponent: JsonFormat: ClassTag] =
     new RootJsonFormat[COGLayerStorageMetadata[K]] {
       def write(sm: COGLayerStorageMetadata[K]) =

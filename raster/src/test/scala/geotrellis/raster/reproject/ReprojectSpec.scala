@@ -25,8 +25,10 @@ import geotrellis.raster.testkit._
 import geotrellis.proj4._
 import geotrellis.raster.io.geotiff._
 import geotrellis.raster.io.geotiff.reader._
+
 import org.scalatest._
 import spire.syntax.cfor._
+import cats.implicits._
 
 class ReprojectSpec extends FunSpec
     with TileBuilders
