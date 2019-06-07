@@ -16,13 +16,15 @@
 
 package geotrellis.layers
 
-import cats.Functor
-import cats.implicits._
 import geotrellis.proj4.CRS
 import geotrellis.raster._
 import geotrellis.tiling._
 import geotrellis.util._
 import geotrellis.vector.{Extent, ProjectedExtent}
+
+import cats.{Functor, Semigroup}
+import cats.implicits._
+
 
 /**
  * @param cellType    value type of each cell
@@ -45,24 +47,6 @@ case class TileLayerMetadata[K](
   def layoutExtent: Extent = layout.extent
   /** GridBounds of data tiles in the layout */
   def tileBounds: TileBounds = mapTransform(extent)
-
-  def combine(other: TileLayerMetadata[K])(implicit b: Boundable[K]): TileLayerMetadata[K] = {
-    val combinedExtent       = extent combine other.extent
-    val combinedLayoutExtent = layout.extent combine other.layout.extent
-    val combinedTileLayout   = layout.tileLayout combine other.layout.tileLayout
-    val combinedBounds       = bounds combine other.bounds
-
-    this
-      .copy(
-        extent = combinedExtent,
-        bounds = combinedBounds,
-        layout = this.layout
-          .copy(
-            extent     = combinedLayoutExtent,
-            tileLayout = combinedTileLayout
-          )
-      )
-  }
 
   def updateBounds(newBounds: Bounds[K])(implicit c: Component[K, SpatialKey]): TileLayerMetadata[K] =
     newBounds match {
@@ -99,10 +83,23 @@ object TileLayerMetadata {
   implicit def boundsComponent[K: SpatialComponent]: Component[TileLayerMetadata[K], Bounds[K]] =
     Component(_.bounds, (md, b) => md.updateBounds(b))
 
-  implicit def mergable[K: Boundable]: merge.Mergable[TileLayerMetadata[K]] =
-    new merge.Mergable[TileLayerMetadata[K]] {
-      def merge(t1: TileLayerMetadata[K], t2: TileLayerMetadata[K]): TileLayerMetadata[K] =
-        t1.combine(t2)
+  implicit def tileMetadataSemigroup[K: Boundable]: Semigroup[TileLayerMetadata[K]] =
+    new Semigroup[TileLayerMetadata[K]] {
+      def combine(x: TileLayerMetadata[K], y: TileLayerMetadata[K]): TileLayerMetadata[K] = {
+        val combinedExtent       = x.extent combine y.extent
+        val combinedBounds       = x.bounds combine y.bounds
+        val combinedLayoutExtent = x.layout.extent combine y.layout.extent
+        val combinedTileLayout   = x.layout.tileLayout combine y.layout.tileLayout
+
+        x.copy(
+          extent = combinedExtent,
+          bounds = combinedBounds,
+          layout = x.layout.copy(
+            extent     = combinedLayoutExtent,
+            tileLayout = combinedTileLayout
+          )
+        )
+      }
     }
 
   implicit val tileLayerMetadataFunctor: Functor[TileLayerMetadata] = new Functor[TileLayerMetadata] {

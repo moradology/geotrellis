@@ -22,15 +22,15 @@ import geotrellis.layers._
 import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.layers.index._
-import geotrellis.layers.merge.Mergable
 import geotrellis.spark._
 import geotrellis.util._
 
 import com.typesafe.scalalogging.LazyLogging
-
 import org.apache.avro._
 import org.apache.spark.rdd.RDD
 import spray.json._
+import cats.Semigroup
+import cats.implicits._
 
 import scala.reflect.ClassTag
 import java.util.ServiceLoader
@@ -50,7 +50,7 @@ trait LayerWriter[ID] {
     H: JsonFormat,
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec,
-    M: Component[?, Bounds[K]]: Mergable: JsonFormat
+    M: Component[?, Bounds[K]]: Semigroup: JsonFormat
   ](id: LayerId, updateMetadata: M): Option[LayerAttributes[H, M, K]] = {
     if (!attributeStore.layerExists(id)) throw new LayerNotFoundError(id)
 
@@ -71,7 +71,7 @@ trait LayerWriter[ID] {
           throw new LayerUpdateError(id, "Update Avro record schema does not match existing schema.")
 
         // Data extent could have grown
-        val updatedMetadata: M = metadata.merge(updateMetadata)
+        val updatedMetadata: M = metadata.combine(updateMetadata)
         val updatedAttributes = LayerAttributes(header, updatedMetadata, keyIndex, writerSchema)
 
         Some(updatedAttributes)
@@ -95,7 +95,7 @@ trait LayerWriter[ID] {
   def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](id: ID, rdd: RDD[(K, V)] with Metadata[M], mergeFunc: (V, V) => V = { (existing: V, updating: V) => updating }): Unit
 
   /** Update persisted layer without checking for possible.
@@ -120,7 +120,7 @@ trait LayerWriter[ID] {
   def overwrite[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](id: ID, rdd: RDD[(K, V)] with Metadata[M]): Unit
 
   // Layer Writing

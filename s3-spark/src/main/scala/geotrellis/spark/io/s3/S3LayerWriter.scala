@@ -21,7 +21,6 @@ import geotrellis.layers._
 import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.layers.index._
-import geotrellis.layers.merge.Mergable
 import geotrellis.store.s3._
 import geotrellis.store.s3.conf.S3Config
 import geotrellis.spark._
@@ -30,13 +29,12 @@ import geotrellis.spark.merge._
 import geotrellis.util._
 
 import com.typesafe.scalalogging.LazyLogging
-
 import org.apache.spark.rdd.RDD
-
 import software.amazon.awssdk.services.s3.model.PutObjectRequest
 import software.amazon.awssdk.services.s3.S3Client
-
 import spray.json._
+import cats.Semigroup
+import cats.implicits._
 
 import scala.reflect._
 
@@ -67,7 +65,7 @@ class S3LayerWriter(
   def overwrite[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M]
@@ -78,7 +76,7 @@ class S3LayerWriter(
   def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](id: LayerId, rdd: RDD[(K, V)] with Metadata[M], mergeFunc: (V, V) => V): Unit = {
     update(id, rdd, Some(mergeFunc))
   }
@@ -86,7 +84,7 @@ class S3LayerWriter(
   private def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],

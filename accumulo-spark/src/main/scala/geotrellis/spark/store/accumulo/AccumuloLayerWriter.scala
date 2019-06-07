@@ -22,12 +22,12 @@ import geotrellis.store.accumulo._
 import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.layers.index._
-import geotrellis.layers.merge.Mergable
 import geotrellis.spark.store._
 import geotrellis.spark.merge._
 import geotrellis.util._
 
 import com.typesafe.scalalogging.LazyLogging
+import cats.Semigroup
 
 import org.apache.spark.rdd.RDD
 
@@ -46,7 +46,7 @@ class AccumuloLayerWriter(
   def overwrite[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M]
@@ -57,7 +57,7 @@ class AccumuloLayerWriter(
   def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],
@@ -69,7 +69,7 @@ class AccumuloLayerWriter(
   private def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],

@@ -23,16 +23,16 @@ import geotrellis.layers.hadoop.{HadoopAttributeStore, HadoopLayerHeader}
 import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.layers.index.KeyIndex
-import geotrellis.layers.merge.Mergable
 import geotrellis.spark.store._
 import geotrellis.util._
 
 import com.typesafe.scalalogging.LazyLogging
-
 import org.apache.hadoop.fs.Path
 import org.apache.spark.rdd.RDD
 import org.apache.spark.SparkContext
 import spray.json._
+import cats.Semigroup
+import cats.implicits._
 
 import scala.reflect._
 
@@ -47,7 +47,7 @@ class HadoopLayerWriter(
   def overwrite[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](id: LayerId, rdd: RDD[(K, V)] with Metadata[M]): Unit = {
     update(id, rdd, None)
   }
@@ -55,7 +55,7 @@ class HadoopLayerWriter(
   def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](id: LayerId, rdd: RDD[(K, V)] with Metadata[M], mergeFunc: (V, V) => V): Unit = {
     update(id, rdd, Some(mergeFunc))
   }
@@ -63,7 +63,7 @@ class HadoopLayerWriter(
   private def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],

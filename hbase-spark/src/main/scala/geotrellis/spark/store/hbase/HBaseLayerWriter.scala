@@ -25,8 +25,9 @@ import geotrellis.layers._
 import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.layers.index._
-import geotrellis.layers.merge.Mergable
 import geotrellis.util._
+import cats.Semigroup
+import cats.implicits
 
 import org.apache.spark.rdd.RDD
 import com.typesafe.scalalogging.LazyLogging
@@ -44,7 +45,7 @@ class HBaseLayerWriter(
   def overwrite[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M]
@@ -55,7 +56,7 @@ class HBaseLayerWriter(
   def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],
@@ -67,7 +68,7 @@ class HBaseLayerWriter(
   private def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],

@@ -23,7 +23,6 @@ import geotrellis.layers.file.{FileAttributeStore, FileLayerHeader, KeyPathGener
 import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.layers.index._
-import geotrellis.layers.merge.Mergable
 import geotrellis.layers.{LayerId, Metadata}
 import geotrellis.spark._
 import geotrellis.spark.store._
@@ -31,10 +30,10 @@ import geotrellis.spark.merge._
 import geotrellis.util._
 
 import com.typesafe.scalalogging.LazyLogging
-
 import org.apache.spark.rdd.RDD
-
 import spray.json._
+import cats.Semigroup
+import cats.implicits._
 
 import scala.reflect._
 import java.io.File
@@ -61,7 +60,7 @@ class FileLayerWriter(
   def overwrite[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M]
@@ -72,7 +71,7 @@ class FileLayerWriter(
   def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],
@@ -84,7 +83,7 @@ class FileLayerWriter(
   private def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],
@@ -101,7 +100,7 @@ class FileLayerWriter(
 
         attributeStore.writeLayerAttributes(id, header, metadata, keyIndex, writerSchema)
         FileRDDWriter.update[K, V](rdd, layerPath, keyPath, Some(writerSchema), mergeFunc)
-        
+
       case None =>
         logger.warn(s"Skipping update with empty bounds for $id.")
     }

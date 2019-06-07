@@ -22,15 +22,14 @@ import geotrellis.layers.avro._
 import geotrellis.layers.avro.codecs._
 import geotrellis.store.cassandra._
 import geotrellis.layers.index._
-import geotrellis.layers.merge.Mergable
 import geotrellis.spark.store._
 import geotrellis.spark.merge._
 import geotrellis.util._
+import cats.Semigroup
+import cats.implicits._
 
 import com.typesafe.scalalogging.LazyLogging
-
 import org.apache.spark.rdd.RDD
-
 import spray.json._
 
 import scala.reflect._
@@ -46,7 +45,7 @@ class CassandraLayerWriter(
   def overwrite[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M]
@@ -57,7 +56,7 @@ class CassandraLayerWriter(
   def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],
@@ -69,7 +68,7 @@ class CassandraLayerWriter(
   private def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](
     id: LayerId,
     rdd: RDD[(K, V)] with Metadata[M],
