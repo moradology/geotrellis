@@ -21,7 +21,6 @@ import geotrellis.store._
 import geotrellis.store.avro._
 import geotrellis.store.avro.codecs._
 import geotrellis.store.index._
-import geotrellis.layer.merge.Mergable
 import geotrellis.spark._
 import geotrellis.util._
 
@@ -30,6 +29,7 @@ import com.typesafe.scalalogging.LazyLogging
 import org.apache.avro._
 import org.apache.spark.rdd.RDD
 import spray.json._
+import cats.Semigroup
 
 import scala.reflect.ClassTag
 import java.util.ServiceLoader
@@ -49,7 +49,7 @@ trait LayerWriter[ID] {
     H: JsonFormat,
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec,
-    M: Component[?, Bounds[K]]: Mergable: JsonFormat
+    M: Component[?, Bounds[K]]: Semigroup: JsonFormat
   ](id: LayerId, updateMetadata: M): Option[LayerAttributes[H, M, K]] = {
     if (!attributeStore.layerExists(id)) throw new LayerNotFoundError(id)
 
@@ -94,7 +94,7 @@ trait LayerWriter[ID] {
   def update[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](id: ID, rdd: RDD[(K, V)] with Metadata[M], mergeFunc: (V, V) => V = { (existing: V, updating: V) => updating }): Unit
 
   /** Update persisted layer without checking for possible.
@@ -119,7 +119,7 @@ trait LayerWriter[ID] {
   def overwrite[
     K: AvroRecordCodec: Boundable: JsonFormat: ClassTag,
     V: AvroRecordCodec: ClassTag,
-    M: JsonFormat: Component[?, Bounds[K]]: Mergable
+    M: JsonFormat: Component[?, Bounds[K]]: Semigroup
   ](id: ID, rdd: RDD[(K, V)] with Metadata[M]): Unit
 
   // Layer Writing
