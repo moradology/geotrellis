@@ -44,7 +44,7 @@ object ProjectedExtentComponentReproject {
   ](
     rdd: RDD[(K, V)],
     destCrs: CRS,
-    resampleTarget: Option[ResampleTarget],
+    resampleTarget: ResampleTarget,
     resampleMethod: ResampleMethod = ResampleMethods.NearestNeighbor,
     errorThreshold: Double = 0.125
   ): RDD[(K, V)] =

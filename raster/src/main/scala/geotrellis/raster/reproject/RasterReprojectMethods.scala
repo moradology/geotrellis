@@ -24,9 +24,9 @@ import spire.math.Integral
 
 trait RasterReprojectMethods[+T <: Raster[_]] extends MethodExtensions[T] {
 
-  def reproject(transform: Transform, inverseTransform: Transform, resampleTarget: Option[ResampleTarget]): T
+  def reproject(transform: Transform, inverseTransform: Transform, resampleTarget: ResampleTarget): T
 
-  def reproject(src: CRS, dest: CRS, resampleTarget: Option[ResampleTarget]): T = {
+  def reproject(src: CRS, dest: CRS, resampleTarget: ResampleTarget): T = {
     val transform = Transform(src, dest)
     val inverseTransform = Transform(dest, src)
 
@@ -34,6 +34,6 @@ trait RasterReprojectMethods[+T <: Raster[_]] extends MethodExtensions[T] {
   }
 
   def reproject(src: CRS, dest: CRS): T =
-    reproject(src, dest, None)
+    reproject(src, dest, DefaultTarget)
 
 }

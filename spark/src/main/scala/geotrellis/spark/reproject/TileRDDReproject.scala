@@ -53,7 +53,7 @@ object TileRDDReproject extends LazyLogging {
     metadata: TileLayerMetadata[K],
     destCrs: CRS,
     targetLayout: LayoutDefinition,
-    resampleTarget: Option[ResampleTarget],
+    resampleTarget: ResampleTarget,
     resampleMethod: ResampleMethod = ResampleMethods.NearestNeighbor,
     partitioner: Option[Partitioner] = None
   ): (Int, RDD[(K, V)] with Metadata[TileLayerMetadata[K]]) = ???
@@ -66,7 +66,7 @@ object TileRDDReproject extends LazyLogging {
     rdd: RDD[(K, V)] with Metadata[TileLayerMetadata[K]],
     destCrs: CRS,
     targetLayout: LayoutDefinition,
-    resampleTarget: Option[ResampleTarget],
+    resampleTarget: ResampleTarget,
     resampleMethod: ResampleMethod = ResampleMethods.NearestNeighbor,
     partitioner: Option[Partitioner] = None
   ): (Int, RDD[(K, V)] with Metadata[TileLayerMetadata[K]]) = ???
@@ -80,7 +80,7 @@ object TileRDDReproject extends LazyLogging {
     destCrs: CRS,
     targetLayout: LayoutDefinition,
     bufferSize: Int,
-    resampleTarget: Option[ResampleTarget],
+    resampleTarget: ResampleTarget,
     resampleMethod: ResampleMethod = ResampleMethods.NearestNeighbor,
     partitioner: Option[Partitioner] = None
   ): (Int, RDD[(K, V)] with Metadata[TileLayerMetadata[K]]) = ???
@@ -107,7 +107,7 @@ object TileRDDReproject extends LazyLogging {
     metadata: TileLayerMetadata[K],
     destCrs: CRS,
     targetLayout: LayoutScheme,
-    resampleTarget: Option[ResampleTarget],
+    resampleTarget: ResampleTarget,
     resampleMethod: ResampleMethod = ResampleMethods.NearestNeighbor,
     partitioner: Option[Partitioner] = None
   ): (Int, RDD[(K, V)] with Metadata[TileLayerMetadata[K]]) = {
@@ -214,7 +214,7 @@ object TileRDDReproject extends LazyLogging {
     rdd: RDD[(K, V)] with Metadata[TileLayerMetadata[K]],
     destCrs: CRS,
     targetLayout: LayoutScheme,
-    resampleTarget: Option[ResampleTarget],
+    resampleTarget: ResampleTarget,
     resampleMethod: ResampleMethod = ResampleMethods.NearestNeighbor,
     partitioner: Option[Partitioner] = None
   ): (Int, RDD[(K, V)] with Metadata[TileLayerMetadata[K]]) = {
@@ -294,7 +294,7 @@ object TileRDDReproject extends LazyLogging {
     destCrs: CRS,
     targetLayout: LayoutScheme,
     bufferSize: Int,
-    resampleTarget: Option[ResampleTarget],
+    resampleTarget: ResampleTarget,
     resampleMethod: ResampleMethod = ResampleMethods.NearestNeighbor,
     partitioner: Option[Partitioner] = None
   ): (Int, RDD[(K, V)] with Metadata[TileLayerMetadata[K]]) =
